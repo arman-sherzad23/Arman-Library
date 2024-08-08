@@ -1,26 +1,9 @@
 
-/*=============== SEARCH ===============*/
-const searchButton = document.getElementById("search-button"),
-    searchClose = document.getElementById("search-close"),
-    searchContent = document.getElementById("search-content")
-
-if(searchButton){
-    searchButton.addEventListener('click', ()=>{
-        searchContent.classList.add('show-search')
-    })
-}
-
-if(searchClose){
-    searchClose.addEventListener('click', ()=>{
-        searchContent.classList.remove('show-search')
-    })
-}
-
 /*=============== LOGIN ===============*/
 
 const loginButton = document.getElementById("login-button"),
     loginClose = document.getElementById("login-close"),
-    loginContent = document.getElementById("login-content")
+    loginContent = document.getElementById("login-wrapper")
 
 if(loginButton){
     loginButton.addEventListener('click', ()=>{
@@ -113,25 +96,87 @@ window.addEventListener('scroll', scrollUp)
 
 
 /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
-const sections = document.querySelectorAll('testimonial"')
-    
-const scrollActive = () =>{
-  	const scrollDown = window.scrollY
+document.addEventListener('DOMContentLoaded', () => {
+    const searchAction = document.getElementById('search-action');
+    const featuredCard = document.getElementById('featured-card');
+    const featuredTitle = resultsList.getElementsByClassName('featured-title');
 
-	sections.forEach(current =>{
-		const sectionHeight = current.offsetHeight,
-			  sectionTop = current.offsetTop - 58,
-			  sectionId = current.getAttribute('id'),
-			  sectionsClass = document.querySelector('.nav-menu a[href*=' + sectionId + ']')
+    searchInput.addEventListener('input', () => {
+        const filter = searchInput.value.toLowerCase();
 
-		if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
-			sectionsClass.classList.add('active-link')
-		}else{
-			sectionsClass.classList.remove('active-link')
-		}                                                    
-	})
+        Array.from(items).forEach(item => {
+            const text = item.textContent || item.innerText;
+            if (text.toLowerCase().includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+
+/*=============== text animation ===============*/
+
+
+let words = document.querySelectorAll(".word");
+words.forEach((word)=>{
+    let letters = word.textContent.split("");
+    word.textContent="";
+    letters.forEach((letter)=>{
+        let span = document.createElement("sapn");
+        span.textContent = letter;
+        span.className = "letter";
+        word.append(span);
+    });
+});
+
+
+let currentWordIndex = 0;
+let maxWordIndex = words.length -1;
+words[currentWordIndex].style.opacity = "1";
+
+let changeText = ()=>{
+    let currentWord = words[currentWordIndex];
+    let nextWord = currentWordIndex === maxWordIndex ? words[0] : words[currentWordIndex +1];
+
+    Array.from(currentWord.children).forEach((letter,i)=>{
+        setTimeout(()=>{
+            letter.className = "letter out";
+        },i * 80);
+    });
+    nextWord.style.opacity="1";
+    Array.from(nextWord.children).forEach((letter,i)=>{
+        letter.className = "letter behind";
+        setTimeout(()=>{
+            letter.className = "letter in";
+        },340 + i * 80);
+    });
+    currentWordIndex = currentWordIndex == maxWordIndex ? 0: currentWordIndex + 1;
+};
+
+changeText();
+setInterval(changeText,3000)
+
+/*=============== text animation ===============*/
+
+const text = document.querySelector(".sec-text");
+
+const textLoad = () => {
+    setTimeout(() => {
+        text.textContent = "Founder";
+    }, 0);
+    setTimeout(() => {
+        text.textContent = "Arman";
+    }, 4000);
 }
-window.addEventListener('scroll', scrollActive)
+
+textLoad();
+setInterval(textLoad, 12000);
 
 
-/*=============== SCROLL REVEAL ANIMATION ===============*/
+
+
+
+
+
+
