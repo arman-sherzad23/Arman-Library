@@ -786,7 +786,7 @@ img {
 
 .container-text .text-found{
   position: relative;
-  color: #4070F4;
+  color: black;
   font-size: 30px;
   font-weight: 600;
 }
@@ -801,7 +801,7 @@ img {
   height: 100%;
   width: 100%;
   background-color: #f5f5f5;
-  border-left: 2px solid #4070F4;
+  border-left: 2px solid black;
   animation: animate 4s steps(12) infinite;
 }
 @keyframes animate{
@@ -818,7 +818,7 @@ img {
 footer{
   position: relative;
   width: 100%;
-  background: #3586ff;
+  background: black;
   min-height: 100px;
   padding-block-end: 20px 50px;
   display: flex;
